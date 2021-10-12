@@ -1,0 +1,12 @@
+server:
+    port: 8080
+spring:
+    datasource:
+        username: root
+        password: Haidao!@#$%^&*()690159
+        url: jdbc:mysql://120.77.207.4:3306/hdweb?serverTimezone=UTC
+        jdbc.driverClassName: com.mysql.jdbc.Driver
+
+mybatis-plus:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
