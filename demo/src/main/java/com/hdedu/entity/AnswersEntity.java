@@ -25,9 +25,6 @@ public class AnswersEntity {
     @ApiModelProperty("实际奖励发放金额")
     private BigDecimal rewardTotal;
 
-    @ApiModelProperty("奖励发放时间")
-    private Date createdAt;
-
     @ApiModelProperty("是否隐藏：0=隐藏，1=显示")
     private Integer status;
 
