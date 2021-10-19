@@ -1,6 +1,7 @@
 package com.hdedu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hdedu.base.PageResult;
@@ -40,13 +41,15 @@ public class AnswersServiceImpl implements AnswersService {
      */
     @Override
     public PageResult pageAnswers(AnswersEntity answersEntity,Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        PageResult pageResult = new PageResult();
+        Page page = PageHelper.startPage(pageNum,pageSize,true);
         QueryWrapper<AnswersEntity> wrapper = new QueryWrapper<>();
         List<AnswersEntity> answersEntities = answersMapper.selectList(wrapper);
-        PageInfo pageInfo = new PageInfo(answersEntities);
-        PageResult pageInfo1 = new PageResult();
-        BeanUtils.copyProperties(pageInfo,pageInfo1);
-        pageInfo1.setList(answersEntities);
-        return pageInfo1;
+        pageResult.setPageNum(pageNum);
+        pageResult.setPageSize(pageSize);
+        pageResult.setPages(page.getPages());
+        pageResult.setTotal(page.getTotal());
+        pageResult.setList(answersEntities);
+        return pageResult;
     }
 }
