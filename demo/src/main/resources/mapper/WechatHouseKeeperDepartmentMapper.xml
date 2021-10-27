@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdedu.mapper.WechatHouseKeeperDepartmentMapper">
+
+    <select id="selectCountByDepartmentId" resultType="java.lang.Integer">
+        SELECT count(*) FROM `wechat_housekeeper_department` where department_id = #{departmentId}
+    </select>
+
+    <insert id="bathInsertDepartment">
+        insert into wechat_housekeeper_department (id,department_id,department_name,parent_department_id,created_time,update_time) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.departmentId},
+            #{item.departmentName},
+            #{item.parentDepartmentId},
+            NOW(),
+            NOW()
+            )
+        </foreach>
+    </insert>
+</mapper>
