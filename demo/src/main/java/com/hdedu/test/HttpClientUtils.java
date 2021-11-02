@@ -175,27 +175,6 @@ public class HttpClientUtils {
         return context;
     }
 
-    public static void setCookieStore(HttpResponse httpResponse) {
-        System.out.println("----setCookieStore");
-        CookieStore cookieStore = new BasicCookieStore();
-        // JSESSIONID
-        String setCookie = httpResponse.getFirstHeader("Set-Cookie")
-                .getValue();
-        String JSESSIONID = setCookie.substring("JSESSIONID=".length(),
-                setCookie.indexOf(";"));
-        System.out.println("JSESSIONID:" + JSESSIONID);
-        // 新建一个Cookie
-        BasicClientCookie cookie = new BasicClientCookie("JSESSIONID",
-                JSESSIONID);
-        cookie.setVersion(0);
-        cookie.setDomain("127.0.0.1");
-        cookie.setPath("/CwlProClient");
-        // cookie.setAttribute(ClientCookie.VERSION_ATTR, "0");
-        // cookie.setAttribute(ClientCookie.DOMAIN_ATTR, "127.0.0.1");
-        // cookie.setAttribute(ClientCookie.PORT_ATTR, "8080");
-        // cookie.setAttribute(ClientCookie.PATH_ATTR, "/CwlProWeb");
-        cookieStore.addCookie(cookie);
-    }
 
     public static String httpPost(String url,Map<String,String> params){
 
@@ -241,7 +220,7 @@ public class HttpClientUtils {
     }
 
 
-    public static String doPostBody(String url, String paramString,String headerStr) {
+    public static String doPostBody(String url, String paramString, String timestamp,String signature,String accessToken) {
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse httpResponse = null;
         String result = "";
@@ -256,12 +235,9 @@ public class HttpClientUtils {
         httpPost.setConfig(requestConfig);
         // 设置请求头
         httpPost.addHeader("Content-Type", "application/json");
-        if (StringUtils.isNotBlank(headerStr)){
-            JSONObject headerObject = JSONObject.parseObject(headerStr);
-            httpPost.addHeader("timestamp", headerObject.getString("timestamp"));
-            httpPost.addHeader("signature", headerObject.getString("signature"));
-            httpPost.addHeader("accessToken", headerObject.getString("accessToken"));
-        }
+        httpPost.addHeader("timestamp",timestamp);
+        httpPost.addHeader("signature",signature);
+        httpPost.addHeader("accessToken",accessToken);
         // 为httpPost设置封装好的请求参数
         try {
             httpPost.setEntity(new StringEntity(paramString, "UTF-8"));
@@ -296,55 +272,5 @@ public class HttpClientUtils {
             }
         }
         return result;
-    }
-
-
-    public static String postMap(String url,Map<String,String> headerMap,Map<String, String> contentMap) {
-        String result = null;
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost post = new HttpPost(url);
-        List<NameValuePair> content = new ArrayList<NameValuePair>();
-        Iterator iterator = contentMap.entrySet().iterator();           //将content生成entity
-        while(iterator.hasNext()){
-            Map.Entry<String,String> elem = (Map.Entry<String, String>) iterator.next();
-            content.add(new BasicNameValuePair(elem.getKey(),elem.getValue()));
-        }
-        CloseableHttpResponse response = null;
-        try {
-            Iterator headerIterator = headerMap.entrySet().iterator();          //循环增加header
-            while(headerIterator.hasNext()){
-                Map.Entry<String,String> elem = (Map.Entry<String, String>) headerIterator.next();
-                post.addHeader(elem.getKey(),elem.getValue());
-            }
-            if(content.size() > 0){
-                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(content,"UTF-8");
-                post.setEntity(entity);
-            }
-            response = httpClient.execute(post);            //发送请求并接收返回数据
-            if(response != null && response.getStatusLine().getStatusCode() == 200)
-            {
-                HttpEntity entity = response.getEntity();       //获取response的body部分
-                result = EntityUtils.toString(entity);          //读取reponse的body部分并转化成字符串
-            }
-            return result;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                httpClient.close();
-                if(response != null)
-                {
-                    response.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return null;
     }
 }

@@ -26,4 +26,77 @@
             )
         </foreach>
     </insert>
+
+    <update id="updateHouseKeepUserInfo" parameterType="java.util.List">
+        update wechat_user_relationship
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="user_account =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.userAccount!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.userAccount}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix=" user_name =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.userName!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.userName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="nick_name =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.nickName!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.nickName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="user_depart_name =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.userDepartName!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.userDepartName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="is_customer_service =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.isCustomerService!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.isCustomerService}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="creator =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.creator!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.creator}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="record_created_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.recordCreatedTime!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.recordCreatedTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="user_status =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.userStatus!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.userStatus}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.updateTime!=null">
+                        when wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId} then #{i.updateTime}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index" >
+            wechat_house_keeper_user_id = #{i.wechatHouseKeeperUserId}
+        </foreach>
+    </update>
 </mapper>

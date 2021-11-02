@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdedu.mapper.WechatCustomerAndFriendsMapper">
+
+    <insert id="batchInsertWechatCustomerAndFriendsInfo">
+        insert into wechat_user_relationship (id,wechat_id,nick_name,wechat_alias,avatar,gender,country,province,city,phone,labels,system_tags,is_deleted,
+        last_update_time,created_time,department_id,account_id,wechat_record_id,friend_record_id,is_passed,remark,pyinitial,quanpin,
+        source,create_time,apply_time,pass_time,add_time,delete_time,friend_status) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.wechatId},
+            #{item.nickName},
+            #{item.wechatAlias},
+            #{item.avatar},
+            #{item.gender},
+            #{item.country},
+            #{item.province},
+            #{item.city},
+            #{item.phone},
+            #{item.labels},
+            #{item.systemTags},
+            #{item.isDeleted},
+            #{item.lastUpdateTime},
+            NOW(),
+            #{item.departmentId},
+            #{item.accountId},
+            #{item.wechatRecordId},
+            #{item.friendRecordId},
+            #{item.isPassed},
+            #{item.remark},
+            #{item.pyinitial},
+            #{item.quanpin},
+            #{item.source},
+            #{item.createTime},
+            #{item.applyTime},
+            #{item.passTime},
+            #{item.addTime},
+            #{item.deleteTime},
+            #{item.friendStatus}
+            )
+        </foreach>
+    </insert>
+
+    <select id="getLastUpdateTime" resultType="java.lang.String">
+        select last_update_time from wechat_user_relationship ORDER BY last_update_time desc limit 1
+    </select>
+    
+    <select id="getLastWechatCustomerAndFriendsInfoOnTime" resultType="java.lang.Integer">
+        select friend_record_id from wechat_user_relationship where account_id = 0 GROUP BY friend_record_id
+    </select>
+    
+    <update id="updateWechatCustomerAndFriends" parameterType="java.util.List">
+        update wechat_user_relationship
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="nick_name =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.nickName!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.nickName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix=" wechat_alias =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.wechatAlias!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.wechatAlias}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="avatar =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avatar!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.avatar}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="gender =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.gender!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.gender}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="country =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.country!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.country}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="province =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.province!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.province}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="city =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.city!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.city}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="phone =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.phone!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.phone}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="labels =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.labels!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.labels}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="system_tags =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.systemTags!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.systemTags}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="is_deleted =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.isDeleted!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.isDeleted}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="last_update_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.lastUpdateTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.lastUpdateTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="department_id =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.departmentId!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.departmentId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="account_id =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.accountId!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.accountId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="wechat_record_id =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.wechatRecordId!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.wechatRecordId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="friend_record_id =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.friendRecordId!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.friendRecordId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="is_passed =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.isPassed!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.isPassed}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="remark =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.remark != null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.remark}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="pyinitial =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.pyinitial!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.pyinitial}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="quanpin =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.quanpin!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.quanpin}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="source =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.source!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.source}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="create_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.createTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.createTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="apply_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.applyTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.applyTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="pass_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.passTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.passTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="add_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.addTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.addTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="delete_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.deleteTime!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.deleteTime}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="friend_status =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.friendStatus!=null">
+                        when friend_record_id = #{i.friendRecordId} then #{i.friendStatus}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index" >
+            friend_record_id = #{i.friendRecordId}
+        </foreach>
+    </update>
+</mapper>

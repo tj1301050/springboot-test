@@ -10,4 +10,6 @@ public interface WechatHouseKeeperUserMapper extends BaseMapper<WechatHouseKeepe
     int bathInsertUser(List<WechatHouseKeeperUserEntity> list);
 
     int selectCountByWechatHouseKeeperUserId(String wechatHouseKeeperUserId);
+
+    void updateHouseKeepUserInfo(List<WechatHouseKeeperUserEntity> userEntityList);
 }

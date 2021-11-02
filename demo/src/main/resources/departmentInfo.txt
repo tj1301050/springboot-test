@@ -14,6 +14,20 @@
         "a_attr": null
     },
     {
+        "id": "104592",
+        "parent": "104585",
+        "text": "加拿大业务线",
+        "icon": null,
+        "state": {
+            "opend": false,
+            "selected": false,
+            "disabled": false,
+            "hidden": false
+        },
+        "li_attr": null,
+        "a_attr": null
+    },
+    {
         "id": "104405",
         "parent": "104585",
         "text": "澳新组",

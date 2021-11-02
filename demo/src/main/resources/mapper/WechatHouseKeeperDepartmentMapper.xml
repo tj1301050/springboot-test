@@ -19,4 +19,33 @@
             )
         </foreach>
     </insert>
+
+    <update id="updateHouseKeepDepartmentInfo" parameterType="java.util.List">
+        update wechat_housekeeper_department
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="department_name =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.departmentName!=null">
+                        when department_id = #{i.departmentId} then #{i.departmentName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix=" parent_department_id =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.parentDepartmentId!=null">
+                        when department_id = #{i.departmentId} then #{i.parentDepartmentId}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_time =case" suffix="end," >
+                <foreach collection="list" item="i" index="index">
+                    when department_id = #{i.departmentId} then now()
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index" >
+            department_id = #{i.departmentId}
+        </foreach>
+    </update>
 </mapper>

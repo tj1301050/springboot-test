@@ -10,4 +10,6 @@ public interface WechatHouseKeeperDepartmentMapper extends BaseMapper<WechatHous
     int selectCountByDepartmentId(String departmentId);
 
     int bathInsertDepartment(List<WechatHouseKeeperDepartmentEntity> list);
+
+    void updateHouseKeepDepartmentInfo(List<WechatHouseKeeperDepartmentEntity> departmentEntityList);
 }
