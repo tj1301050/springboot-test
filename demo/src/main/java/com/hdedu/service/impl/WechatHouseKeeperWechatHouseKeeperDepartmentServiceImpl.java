@@ -33,8 +33,8 @@ public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements 
     public void getWechatHouseKeeperDepartmentInfoAndSave() {
         String fileName = WechatKeeperHouseDepartmentController.class.getClassLoader().getResource("departmentInfo.txt").getPath();
         try {
-            String s1 = GetResourceFileUtils.readFileByLines(fileName);
-            JSONArray jsonArray = JSONArray.parseArray(s1);
+            String departmentStr = GetResourceFileUtils.readFileByLines(fileName);
+            JSONArray jsonArray = JSONArray.parseArray(departmentStr);
             List<WechatHouseKeeperDepartmentEntity> wechatHouseKeeperDepartmentEntityList = new ArrayList<>();
             if (null != jsonArray && jsonArray.size() > 0) {
                 for (int i = 0; i < jsonArray.size(); i++) {
