@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description TODO
  * @date 2021/10/28 9:22
  */
-@Api(tags = "对接微管家")
+@Api(tags = "客户管家-客户管理-好友分配")
 @RestController
 @RequestMapping("/wechat/houseKeeper")
 @Component
