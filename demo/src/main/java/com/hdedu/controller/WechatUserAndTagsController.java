@@ -28,7 +28,7 @@ public class WechatUserAndTagsController {
      * @param str cookie
      * @return
      */
-    @ApiOperation("获取客服的微信信息")
+    @ApiOperation("获取客服-标签-标签下的用户的微信信息")
     @GetMapping("/user/relationship")
     public ResultVO getCustomerWechatInfo(String str) {
         wechatFriendsAndTagsService.batchInsertTags(str);
