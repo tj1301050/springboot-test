@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 2021/11/3 9:12
  */
 @Data
-@TableName("wechat_friends")
+@TableName("sas_siycrm_wechat_friends")
 public class WechatFriendsEntity {
 
     @TableId(type = IdType.AUTO)

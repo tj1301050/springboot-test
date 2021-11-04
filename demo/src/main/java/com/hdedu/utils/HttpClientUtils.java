@@ -1,11 +1,9 @@
-package com.hdedu.test;
+package com.hdedu.utils;
 
 
-import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.StringUtils;
+
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,10 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Connection;
@@ -28,7 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -88,10 +83,6 @@ public class HttpClientUtils {
             URI uri = new URIBuilder(url).setParameters(list).build();
             HttpGet httpGet = new HttpGet(uri);
             response = httpClient.execute(httpGet);
-            String setCookie = response.getFirstHeader("Set-Cookie").getValue();
-            System.out.println("============="+ setCookie);
-            String referer = request.getHeader("Referer");
-            System.out.println("============="+ referer);
             if (response.getStatusLine().getStatusCode() == 200) {
                 context = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
@@ -272,5 +263,43 @@ public class HttpClientUtils {
             }
         }
         return result;
+    }
+
+    public static String doGet(String url, Map<String, String> params, String cookie) throws Exception{
+        String res = "";
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        // 创建uri
+        URIBuilder builder = new URIBuilder(url);
+        if (params != null) {
+            for (String key : params.keySet()) {
+                builder.addParameter(key, params.get(key));
+            }
+        }
+        URI uri = builder.build();
+        // 创建http GET请求
+        HttpGet httpGet = new HttpGet(uri);
+        httpGet.addHeader("Cookie",cookie);
+        try {
+            // 执行请求操作，并拿到结果（同步阻塞）
+            response = httpClient.execute(httpGet);
+            //获取结果实体
+            HttpEntity entity = response.getEntity();
+            // 判断返回状态是否为200
+            if (response.getStatusLine().getStatusCode() == 200 && entity != null) {
+                //按指定编码（这里为UTF8编码）转换结果实体为String类型
+                res = EntityUtils.toString(entity, "UTF-8");
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            httpGet.releaseConnection();
+            try {
+                httpClient.close();
+            } catch (IOException e) {
+            }
+        }
+        return res;
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdedu.mapper.WechatUserTagsMapper">
+    <insert id="batchInsertWechatUserTags">
+        insert into sas_siycrm_wechat_user_tag (id,personal_wechat_id,tag_id,tag_name,tag_friends_number,created_time,update_time) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.personalWechatId},
+            #{item.tagId},
+            #{item.tagName},
+            #{item.tagFriendsNumber},
+            NOW(),
+            NOW()
+            )
+        </foreach>
+    </insert>
+</mapper>

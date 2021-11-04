@@ -30,7 +30,7 @@ public class GetWechatHouseKeeperAccessTokenController {
 
     /**
      * 获取公司在微管家的用户信息并作存储
-     *
+     * 数据爬取过一次，暂时关闭，有需要的话重新开启
      * @return
      */
     @ApiOperation("获取小助手和线索用户关系并存储")

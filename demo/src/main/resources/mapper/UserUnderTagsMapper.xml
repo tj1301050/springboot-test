@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdedu.mapper.UserUnderTagsMapper">
+    <insert id="batchInsertUserUnderTags">
+        insert into sas_siycrm_user_under_tag (id,tag_id,avatar,tag_user_name,created_time) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.id},
+            #{item.tagId},
+            #{item.avatar},
+            #{item.tagUserName},
+            NOW()
+            )
+        </foreach>
+    </insert>
+</mapper>

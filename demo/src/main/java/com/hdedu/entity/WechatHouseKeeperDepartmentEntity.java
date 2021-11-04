@@ -16,7 +16,7 @@ import java.util.Date;
  * @date 2021/10/26 14:34
  */
 @Data
-@TableName("wechat_housekeeper_department")
+@TableName("sas_siycrm_wechat_housekeeper_department")
 public class WechatHouseKeeperDepartmentEntity {
 
     @TableId(type = IdType.AUTO)

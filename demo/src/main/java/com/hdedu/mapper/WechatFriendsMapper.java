@@ -12,4 +12,6 @@ public interface WechatFriendsMapper extends BaseMapper<WechatFriendsEntity> {
     int selectCountByPersonalWechatId(int personalWechatId);
 
     void batchUpdateWechatFriends(List<WechatFriendsEntity> list);
+
+    List<Integer> getWechatId();
 }

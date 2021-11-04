@@ -3,7 +3,7 @@
 <mapper namespace="com.hdedu.mapper.WechatFriendsMapper">
 
     <insert id="bathInsertWechatFriends">
-        insert into wechat_friends (id,personal_wechat_id,nick_name,wechat_alias,avatar,gender,phone,
+        insert into sas_siycrm_wechat_friends (id,personal_wechat_id,nick_name,wechat_alias,avatar,gender,phone,
         wechat_version,status,friends_total,friends_man,friends_woman,friends_unknow,yesterday_dialogue,last7days_dialogue,
         last30days_dialogue,user_account,custodian,phone_status,customer_status,belong_group,remark,created_time,update_time) values
         <foreach collection="list" item="item" separator=",">
@@ -37,7 +37,7 @@
     </insert>
     
     <select id="selectCountByPersonalWechatId" resultType="java.lang.Integer">
-        select count(*) from wechat_friends where personal_wechat_id = #{personalWechatId}
+        select count(*) from sas_siycrm_wechat_friends where personal_wechat_id = #{personalWechatId}
     </select>
 
     <update id="batchUpdateWechatFriends">
@@ -194,4 +194,8 @@
             personal_wechat_id = #{i.personal_wechat_id}
         </foreach>
     </update>
+
+    <select id="getWechatId" resultType="java.lang.Integer">
+        select personal_wechat_id as personalWechatId from sas_siycrm_wechat_friends
+    </select>
 </mapper>

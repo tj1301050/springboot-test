@@ -3,7 +3,7 @@
 <mapper namespace="com.hdedu.mapper.WechatCustomerAndFriendsMapper">
 
     <insert id="batchInsertWechatCustomerAndFriendsInfo">
-        insert into wechat_user_relationship (id,wechat_id,nick_name,wechat_alias,avatar,gender,country,province,city,phone,labels,system_tags,is_deleted,
+        insert into sas_siycrm_wechat_user_relationship (id,wechat_id,nick_name,wechat_alias,avatar,gender,country,province,city,phone,labels,system_tags,is_deleted,
         last_update_time,created_time,department_id,account_id,wechat_record_id,friend_record_id,is_passed,remark,pyinitial,quanpin,
         source,create_time,apply_time,pass_time,add_time,delete_time,friend_status) values
         <foreach collection="list" item="item" separator=",">
@@ -43,15 +43,15 @@
     </insert>
 
     <select id="getLastUpdateTime" resultType="java.lang.String">
-        select last_update_time from wechat_user_relationship ORDER BY last_update_time desc limit 1
+        select last_update_time from sas_siycrm_wechat_user_relationship ORDER BY last_update_time desc limit 1
     </select>
     
     <select id="getLastWechatCustomerAndFriendsInfoOnTime" resultType="java.lang.Integer">
-        select friend_record_id from wechat_user_relationship where account_id = 0 GROUP BY friend_record_id
+        select friend_record_id from sas_siycrm_wechat_user_relationship where account_id = 0 GROUP BY friend_record_id
     </select>
     
     <update id="updateWechatCustomerAndFriends" parameterType="java.util.List">
-        update wechat_user_relationship
+        update sas_siycrm_wechat_user_relationship
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="nick_name =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">

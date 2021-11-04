@@ -3,11 +3,11 @@
 <mapper namespace="com.hdedu.mapper.WechatHouseKeeperDepartmentMapper">
 
     <select id="selectCountByDepartmentId" resultType="java.lang.Integer">
-        SELECT count(*) FROM `wechat_housekeeper_department` where department_id = #{departmentId}
+        SELECT count(*) FROM `sas_siycrm_wechat_housekeeper_department` where department_id = #{departmentId}
     </select>
 
     <insert id="bathInsertDepartment">
-        insert into wechat_housekeeper_department (id,department_id,department_name,parent_department_id,created_time,update_time) values
+        insert into sas_siycrm_wechat_housekeeper_department (id,department_id,department_name,parent_department_id,created_time,update_time) values
         <foreach collection="list" item="item" separator=",">
             (
             #{item.id},
@@ -21,7 +21,7 @@
     </insert>
 
     <update id="updateHouseKeepDepartmentInfo" parameterType="java.util.List">
-        update wechat_housekeeper_department
+        update sas_siycrm_wechat_housekeeper_department
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="department_name =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">

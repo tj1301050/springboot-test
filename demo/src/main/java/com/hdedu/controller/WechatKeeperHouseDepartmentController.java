@@ -1,9 +1,8 @@
 package com.hdedu.controller;
 
 import com.hdedu.base.ResultVO;
-import com.hdedu.mapper.WechatHouseKeeperDepartmentMapper;
 import com.hdedu.service.WechatHouseKeeperDepartmentService;
-import com.hdedu.test.HttpClientUtils;
+import com.hdedu.utils.HttpClientUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FileUtils;

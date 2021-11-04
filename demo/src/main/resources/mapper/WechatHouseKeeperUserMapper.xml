@@ -3,11 +3,11 @@
 <mapper namespace="com.hdedu.mapper.WechatHouseKeeperUserMapper">
 
     <select id="selectCountByWechatHouseKeeperUserId" resultType="java.lang.Integer">
-        SELECT count(*) FROM `wechat_housekeeper_user` where wechat_house_keeper_user_id = #{wechatHouseKeeperUserId}
+        SELECT count(*) FROM `sas_siycrm_wechat_housekeeper_user` where wechat_house_keeper_user_id = #{wechatHouseKeeperUserId}
     </select>
 
     <insert id="bathInsertUser">
-        insert into wechat_housekeeper_user (id,wechat_house_keeper_user_id,user_account,user_name,nick_name,user_depart_name,
+        insert into sas_siycrm_wechat_housekeeper_user (id,wechat_house_keeper_user_id,user_account,user_name,nick_name,user_depart_name,
         is_customer_service,creator,record_created_time,user_status,created_time,update_time) values
         <foreach collection="list" item="item" separator=",">
             (
@@ -28,7 +28,7 @@
     </insert>
 
     <update id="updateHouseKeepUserInfo" parameterType="java.util.List">
-        update wechat_user_relationship
+        update sas_siycrm_wechat_user_relationship
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="user_account =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">

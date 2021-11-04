@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hdedu.entity.WechatCustomerAndFriendsEntity;
 import com.hdedu.mapper.WechatCustomerAndFriendsMapper;
 import com.hdedu.service.WechatCustomerAndFriendsService;
-import com.hdedu.test.HttpClientUtils;
+import com.hdedu.utils.HttpClientUtils;
 import com.hdedu.utils.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
