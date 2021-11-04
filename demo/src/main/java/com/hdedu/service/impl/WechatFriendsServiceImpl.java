@@ -1,23 +1,24 @@
 package com.hdedu.service.impl;
 
-import com.hdedu.controller.KeeperHouseUserController;
 import com.hdedu.entity.WechatFriendsEntity;
-import com.hdedu.entity.WechatHouseKeeperUserEntity;
 import com.hdedu.mapper.WechatFriendsMapper;
 import com.hdedu.service.WechatFriendsService;
-import com.hdedu.utils.GetResourceFileUtils;
+import com.hdedu.utils.HttpClientUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author tianjian
@@ -29,19 +30,40 @@ import java.util.List;
 @Service
 public class WechatFriendsServiceImpl implements WechatFriendsService {
 
+    String baseUrl = "https://apollo.siycrm.com/WeiXin/PersonalWechat/PersonalWechatList";
+    String group_id = "?group_id=-1";
+    String pageSize = "&pageSize=100";
+    String paramStr = "&X-Requested-With=XMLHttpRequest";
+
     @Autowired
     private WechatFriendsMapper mapper;
 
     @Override
-    public void getWechatFriends() {
-        String fileName = KeeperHouseUserController.class.getClassLoader().getResource("WechatFriends.html").getPath();
+    public void getWechatFriends(String str) {
+        StringBuffer firstBuffer = new StringBuffer();
+        String firstUrl = firstBuffer.append(baseUrl).append(group_id).append(pageSize).toString();
+        int totalPage = getTotal(firstUrl, str);
+        for (int i = 1; i < totalPage; i++) {
+            StringBuffer secondBuffer = new StringBuffer();
+            String secondUrl = secondBuffer.append(baseUrl).append("/").append(i + 1).append(group_id).append(pageSize).append(paramStr).toString();
+            getTotal(secondUrl, str);
+        }
+    }
+
+    private int getTotal(String url, String str){
+        int total = 1;
+//        String fileName = KeeperHouseUserController.class.getClassLoader().getResource("WechatFriends.html").getPath();
         try {
             List<WechatFriendsEntity> insertList = new ArrayList<>();
             List<WechatFriendsEntity> updateList = new ArrayList<>();
-            String htmlStr = GetResourceFileUtils.readFileByLines(fileName);
+            Map<String,String> map = new HashMap<>();
+//            String htmlStr = GetResourceFileUtils.readFileByLines(fileName);
+            String htmlStr = HttpClientUtils.doGet(url,map,str);
             Document document = Jsoup.parse(htmlStr);
             Elements bodyElement = document.getElementsByTag("tbody");
             Elements trs = bodyElement.select("tr");
+            String totalPage = com.hdedu.utils.StringUtils.strSub(document.getElementsByClass("md-table--pagination-num").text());
+            total = Integer.parseInt(totalPage);
             for (int i = 0; i < trs.size(); i++) {
                 Element tr = trs.get(i);
                 Elements tds = tr.select("td");
@@ -121,7 +143,10 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
             }
         } catch (IOException exception) {
             exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return total;
     }
 
     /**

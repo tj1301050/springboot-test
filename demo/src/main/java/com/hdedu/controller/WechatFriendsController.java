@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description TODO
  * @date 2021/11/3 9:07
  */
-@Api(tags = "客服管家-微信列表")
+@Api(tags = "客服管家-微信列表-微信列表")
 @RestController
 @RequestMapping("/wechat")
 public class WechatFriendsController {
@@ -27,10 +27,10 @@ public class WechatFriendsController {
      * 获取客服管家页面-微信列表信息
      * @return
      */
-    @ApiOperation("获取客服的微信信息")
+    @ApiOperation("获取并更新微信列表信息")
     @GetMapping("/getCustomerWechatInfo")
-    public ResultVO getCustomerWechatInfo() {
-        wechatFriendsService.getWechatFriends();
+    public ResultVO getCustomerWechatInfo(String str) {
+        wechatFriendsService.getWechatFriends(str);
         return ResultVO.success();
     }
 }

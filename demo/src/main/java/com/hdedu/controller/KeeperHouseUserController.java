@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/10/26 18:43
  */
 
-@Api(tags = "微管家用户信息同步")
+@Api(tags = "系统管理-用户管理-账号管理")
 @RestController
 @RequestMapping("/housekeeper")
 public class KeeperHouseUserController {
@@ -28,7 +28,7 @@ public class KeeperHouseUserController {
      * 获取公司在微管家的用户信息并作存储
      * @return
      */
-    @ApiOperation("获取公司在微管家的用户信息并作存储")
+    @ApiOperation("获取并更新公司在微管家的用户账号信息")
     @GetMapping("/getUserInfoFromWechatHouseKeeperAndSave")
     public ResultVO getUserInfo(String str) {
         wechatHouseKeeperUserService.getWechatHouseKeeperUserInfo(str);

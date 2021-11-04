@@ -2,5 +2,5 @@ package com.hdedu.service;
 
 public interface WechatFriendsService {
 
-    void getWechatFriends();
+    void getWechatFriends(String str);
 }

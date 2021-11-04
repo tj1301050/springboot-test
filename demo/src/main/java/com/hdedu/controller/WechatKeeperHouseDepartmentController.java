@@ -25,7 +25,7 @@ import java.util.List;
  * @description TODO
  * @date 2021/10/25 16:38
  */
-@Api(tags = "微管家部门信息同步")
+@Api(tags = "系统管理-用户管理-部门管理")
 @RestController
 @RequestMapping("/housekeeper")
 public class WechatKeeperHouseDepartmentController {
@@ -33,7 +33,7 @@ public class WechatKeeperHouseDepartmentController {
     @Autowired
     private WechatHouseKeeperDepartmentService wechatHouseKeeperDepartmentService;
 
-    @ApiOperation("获取微管家部门信息并作存储")
+    @ApiOperation("获取并更新部门信息")
     @GetMapping("/getDepartmentInfoAndSave")
     public ResultVO getDepartmentInfoAndSave(String str){
         wechatHouseKeeperDepartmentService.getWechatHouseKeeperDepartmentInfoAndSave(str);

@@ -1,11 +1,9 @@
 package com.hdedu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hdedu.controller.KeeperHouseUserController;
 import com.hdedu.entity.WechatHouseKeeperUserEntity;
 import com.hdedu.mapper.WechatHouseKeeperUserMapper;
 import com.hdedu.service.WechatHouseKeeperUserService;
-import com.hdedu.utils.GetResourceFileUtils;
 import com.hdedu.utils.HttpClientUtils;
 import com.hdedu.utils.StringUtils;
 import org.jsoup.Jsoup;
@@ -29,7 +27,7 @@ import java.util.*;
 public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserService {
 
     String baseUrl = "https://apollo.siycrm.com/Merchant/User/UserList";
-    String pageSize = "?pageSize=100";
+    String pageSize = "?pageSize=200";
     String paramStr = "&X-Requested-With=XMLHttpRequest";
 
     @Autowired
@@ -118,8 +116,6 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
                     userMapper.update(userEntity, wrapper);
                 }
             }
-            System.out.println(insertList.size());
-            System.out.println(updateList.size());
         } catch (IOException exception) {
             exception.printStackTrace();
         } catch (Exception e) {
