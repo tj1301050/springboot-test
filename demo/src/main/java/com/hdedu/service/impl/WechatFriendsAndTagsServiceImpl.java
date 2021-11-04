@@ -7,7 +7,7 @@ import com.hdedu.mapper.WechatFriendsMapper;
 import com.hdedu.mapper.WechatUserTagsMapper;
 import com.hdedu.service.WechatFriendsAndTagsService;
 import com.hdedu.utils.HttpClientUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.hdedu.utils.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -81,7 +81,7 @@ public class WechatFriendsAndTagsServiceImpl implements WechatFriendsAndTagsServ
                 String tagId = classElements.attr("value");
                 String tagName = tds.get(1).select("span").text();
                 String tagFriendsNumber = tds.get(2).select("a").text();
-                String totalPage = strSub(document.getElementsByClass("md-table--pagination-num").text());
+                String totalPage = StringUtils.strSub(document.getElementsByClass("md-table--pagination-num").text());
                 total = Integer.parseInt(totalPage);
                 wechatUserTags.setPersonalWechatId(personalWechatId);
                 wechatUserTags.setTagFriendsNumber(Integer.parseInt(tagFriendsNumber));
@@ -117,14 +117,7 @@ public class WechatFriendsAndTagsServiceImpl implements WechatFriendsAndTagsServ
         return total;
     }
 
-    private static String strSub(String str) {
-        if (StringUtils.isNotBlank(str)) {
-            str = str.substring(0, str.indexOf("页"));
-            str = str.substring(1, str.length()).replaceAll(" ", "");
-            return str;
-        }
-        return null;
-    }
+
 
     public static void main(String[] args) {
         WechatFriendsAndTagsServiceImpl impl = new WechatFriendsAndTagsServiceImpl();

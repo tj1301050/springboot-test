@@ -8,14 +8,13 @@ import com.hdedu.entity.WechatHouseKeeperDepartmentEntity;
 import com.hdedu.mapper.WechatHouseKeeperDepartmentMapper;
 import com.hdedu.service.WechatHouseKeeperDepartmentService;
 import com.hdedu.utils.GetResourceFileUtils;
+import com.hdedu.utils.HttpClientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author tianjian
@@ -26,14 +25,19 @@ import java.util.List;
 @Service
 public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements WechatHouseKeeperDepartmentService {
 
+    String departmentInfoUrl = "https://apollo.siycrm.com/Merchant/Department/DepartmentTreeData?id=1";
+
     @Autowired
     private WechatHouseKeeperDepartmentMapper wechatHouseKeeperDepartmentMapper;
 
     @Override
-    public void getWechatHouseKeeperDepartmentInfoAndSave() {
-        String fileName = WechatKeeperHouseDepartmentController.class.getClassLoader().getResource("departmentInfo.txt").getPath();
+    public void getWechatHouseKeeperDepartmentInfoAndSave(String str) {
+//        String fileName = WechatKeeperHouseDepartmentController.class.getClassLoader().getResource("departmentInfo.txt").getPath();
         try {
-            String departmentStr = GetResourceFileUtils.readFileByLines(fileName);
+//            String departmentStr = GetResourceFileUtils.readFileByLines(fileName);
+            Map<String,String> map = new HashMap<>();
+            String departmentStr = HttpClientUtils.doGet(departmentInfoUrl,map,str);
+            System.out.println(departmentStr);
             JSONArray jsonArray = JSONArray.parseArray(departmentStr);
             List<WechatHouseKeeperDepartmentEntity> wechatHouseKeeperDepartmentEntityList = new ArrayList<>();
             if (null != jsonArray && jsonArray.size() > 0) {
@@ -72,6 +76,8 @@ public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements 
             }
         } catch (IOException exception) {
             exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

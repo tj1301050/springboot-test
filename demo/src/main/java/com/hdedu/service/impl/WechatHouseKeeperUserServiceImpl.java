@@ -6,6 +6,8 @@ import com.hdedu.entity.WechatHouseKeeperUserEntity;
 import com.hdedu.mapper.WechatHouseKeeperUserMapper;
 import com.hdedu.service.WechatHouseKeeperUserService;
 import com.hdedu.utils.GetResourceFileUtils;
+import com.hdedu.utils.HttpClientUtils;
+import com.hdedu.utils.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,9 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author tianjian
@@ -28,6 +28,10 @@ import java.util.List;
 @Service
 public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserService {
 
+    String baseUrl = "https://apollo.siycrm.com/Merchant/User/UserList";
+    String pageSize = "?pageSize=100";
+    String paramStr = "&X-Requested-With=XMLHttpRequest";
+
     @Autowired
     private WechatHouseKeeperUserMapper userMapper;
 
@@ -36,10 +40,30 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
      * 2.对集合数据进行筛选(新增还是更新)
      */
     @Override
-    public void getWechatHouseKeeperUserInfo() {
-        String fileName = KeeperHouseUserController.class.getClassLoader().getResource("UserHtml.html").getPath();
+    public void getWechatHouseKeeperUserInfo(String str) {
+        StringBuffer firstBuffer = new StringBuffer();
+        String firstUrl = firstBuffer.append(baseUrl).append(pageSize).toString();
+        int totalPage = getTotal(firstUrl, str);
+        for (int i = 1; i < totalPage; i++) {
+            StringBuffer secondBuffer = new StringBuffer();
+            String secondUrl = secondBuffer.append(baseUrl).append("/").append(i + 1).append(pageSize).append(paramStr).toString();
+            getTotal(secondUrl, str);
+        }
+    }
+
+    /**
+     * 写入数据并获取总页数
+     * @param url
+     * @param str
+     * @return
+     */
+    private int getTotal(String url, String str){
+        int total = 1;
+//        String fileName = KeeperHouseUserController.class.getClassLoader().getResource("UserHtml.html").getPath();
         try {
-            String htmlStr = GetResourceFileUtils.readFileByLines(fileName);
+//            String htmlStr = GetResourceFileUtils.readFileByLines(fileName);
+            Map<String,String> map = new HashMap<>();
+            String htmlStr = HttpClientUtils.doGet(url,map,str);
             Document document = Jsoup.parse(htmlStr);
             Elements bodyElement = document.getElementsByTag("tbody");
             Elements trs = bodyElement.select("tr");
@@ -50,6 +74,8 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
                 Element tr = trs.get(i);
                 Elements tds = tr.select("td");
                 WechatHouseKeeperUserEntity userEntity = new WechatHouseKeeperUserEntity();
+                String totalPage = StringUtils.strSub(document.getElementsByClass("md-table--pagination-num").text());
+                total = Integer.parseInt(totalPage);
                 String accountText = tds.get(1).text();
                 String nameText = tds.get(2).text();
                 String nickText = tds.get(3).text();
@@ -92,8 +118,13 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
                     userMapper.update(userEntity, wrapper);
                 }
             }
+            System.out.println(insertList.size());
+            System.out.println(updateList.size());
         } catch (IOException exception) {
             exception.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return total;
     }
 }

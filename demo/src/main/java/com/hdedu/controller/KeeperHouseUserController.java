@@ -30,8 +30,8 @@ public class KeeperHouseUserController {
      */
     @ApiOperation("获取公司在微管家的用户信息并作存储")
     @GetMapping("/getUserInfoFromWechatHouseKeeperAndSave")
-    public ResultVO getUserInfo() {
-        wechatHouseKeeperUserService.getWechatHouseKeeperUserInfo();
+    public ResultVO getUserInfo(String str) {
+        wechatHouseKeeperUserService.getWechatHouseKeeperUserInfo(str);
         return ResultVO.success();
     }
 }
