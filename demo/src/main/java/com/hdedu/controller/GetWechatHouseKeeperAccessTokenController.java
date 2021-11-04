@@ -33,8 +33,8 @@ public class GetWechatHouseKeeperAccessTokenController {
      * 数据爬取过一次，暂时关闭，有需要的话重新开启
      * @return
      */
-    @ApiOperation("获取小助手和线索用户关系并存储")
-    @GetMapping("/getWechatFriendsAndSave")
+//    @ApiOperation("获取小助手和线索用户关系并存储")
+//    @GetMapping("/getWechatFriendsAndSave")
     public ResultVO getWechatFriendsAndSave() {
         wechatCustomerAndFriendsService.batchInsertWechatCustomerAndFriendsInfo();
         return ResultVO.success();
