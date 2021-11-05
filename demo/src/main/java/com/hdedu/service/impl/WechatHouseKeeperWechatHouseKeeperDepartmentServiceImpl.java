@@ -66,13 +66,7 @@ public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements 
                 wechatHouseKeeperDepartmentMapper.bathInsertDepartment(insertList);
             }
             if (!CollectionUtils.isEmpty(updateList)) {
-                for (int i = 0; i < updateList.size(); i++) {
-                    WechatHouseKeeperDepartmentEntity department = updateList.get(i);
-                    QueryWrapper<WechatHouseKeeperDepartmentEntity> wrapper = new QueryWrapper<>();
-                    wrapper.eq("department_id", department.getDepartmentId());
-                    department.setUpdateTime(new Date());
-                    wechatHouseKeeperDepartmentMapper.update(department, wrapper);
-                }
+                wechatHouseKeeperDepartmentMapper.updateHouseKeepDepartmentInfo(updateList);
             }
         } catch (IOException exception) {
             exception.printStackTrace();

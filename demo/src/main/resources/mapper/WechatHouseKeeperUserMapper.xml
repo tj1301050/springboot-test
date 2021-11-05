@@ -28,7 +28,7 @@
     </insert>
 
     <update id="updateHouseKeepUserInfo" parameterType="java.util.List">
-        update sas_siycrm_wechat_user_relationship
+        update sas_siycrm_wechat_housekeeper_user
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="user_account =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">

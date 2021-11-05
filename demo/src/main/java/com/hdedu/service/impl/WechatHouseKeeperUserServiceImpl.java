@@ -109,12 +109,7 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
                 userMapper.bathInsertUser(insertList);
             }
             if (!CollectionUtils.isEmpty(updateList)) {
-                for (WechatHouseKeeperUserEntity userEntity : updateList) {
-                    QueryWrapper<WechatHouseKeeperUserEntity> wrapper = new QueryWrapper<>();
-                    wrapper.eq("wechat_house_keeper_user_id", userEntity.getWechatHouseKeeperUserId());
-                    userEntity.setUpdateTime(new Date());
-                    userMapper.update(userEntity, wrapper);
-                }
+                userMapper.updateHouseKeepUserInfo(updateList);
             }
         } catch (IOException exception) {
             exception.printStackTrace();
