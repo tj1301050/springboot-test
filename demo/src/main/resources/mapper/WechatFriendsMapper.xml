@@ -41,157 +41,157 @@
     </select>
 
     <update id="batchUpdateWechatFriends">
-        update wechat_friends
+        update sas_siycrm_wechat_friends
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="nick_name =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">
                     <if test="i.nickName!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.nickName}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.nickName}
                     </if>
                 </foreach>
             </trim>
             <trim prefix=" wechat_alias =case" suffix="end,">
                 <foreach collection="list" item="i" index="index">
                     <if test="i.wechatAlias!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.wechatAlias}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.wechatAlias}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="wechat_alias =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.avatar!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.avatar}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.avatar}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="gender =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.gender!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.gender}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.gender}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="wechat_version =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.wechatVersion!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.wechatVersion}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.wechatVersion}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="status =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.currentUserStatus!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.currentUserStatus}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.currentUserStatus}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="phone =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.phone!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.phone}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.phone}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="friends_total =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.friendsTotal!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.friendsTotal}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.friendsTotal}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="friends_man =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.friendsMan!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.friendsMan}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.friendsMan}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="friends_woman =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.friendsWoman!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.friendsWoman}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.friendsWoman}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="friends_unknow =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.friendsUnknow!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.friendsUnknow}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.friendsUnknow}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="yesterday_dialogue =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.yesterdayDialogue!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.yesterdayDialogue}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.yesterdayDialogue}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="last7days_dialogue =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.last7daysDialogue!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.last7daysDialogue}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.last7daysDialogue}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="last7days_dialogue =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.last30daysDialogue!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.last30daysDialogue}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.last30daysDialogue}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="user_account =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.userAccount!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.userAccount}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.userAccount}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="custodian =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.custodian!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.custodian}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.custodian}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="phone_status =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.phoneStatus != null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.phoneStatus}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.phoneStatus}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="customer_status =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.customerStatus!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.customerStatus}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.customerStatus}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="belong_group =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.belongGroup!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.belongGroup}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.belongGroup}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="remark =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.remark!=null">
-                        when personal_wechat_id = #{i.personal_wechat_id} then #{i.remark}
+                        when personal_wechat_id = #{i.personalWechatId} then #{i.remark}
                     </if>
                 </foreach>
             </trim>
             <trim prefix="update_time =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
-                        when personal_wechat_id = #{i.personal_wechat_id} then now()
+                        when personal_wechat_id = #{i.personalWechatId} then now()
                 </foreach>
             </trim>
         </trim>
         where
         <foreach collection="list" separator="or" item="i" index="index" >
-            personal_wechat_id = #{i.personal_wechat_id}
+            personal_wechat_id = #{i.personalWechatId}
         </foreach>
     </update>
 

@@ -74,11 +74,11 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
                 String avatar = avatarElement.attr("src");
                 Elements div = tds.get(1).getElementsByClass("d-flex flex-column justify-content-between ml-2");
                 Elements spans = div.select("span");
-                String nickName = subStr(spans.get(0).text(), ":");
+                String nickName = subStr2(spans.get(0).text(), ":");
                 String wechatAlias = subStr(spans.get(2).text(), ":");
-                String gender = subStr(spans.get(3).text(), ":");
-                String wechatVersion = subStr(spans.get(4).text(), ":");
-                String status = subStr(spans.get(5).text(), ":");
+                String gender = subStr2(spans.get(3).text(), ":");
+                String wechatVersion = subStr2(spans.get(4).text(), ":");
+                String status = subStr2(spans.get(5).text(), ":");
                 String phone = tds.get(2).text();
                 Elements friendPElements = tds.get(3).select("p");
                 String friendsMan = friendPElements.get(0).select("span").get(1).text();
@@ -108,6 +108,7 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
                     customerStatus = equipmentPElements.get(4).select("span").get(1).text();
                 }
                 String belongGroup = tds.get(7).select("a").text();
+                String remark = tds.get(9).select("a").text();
                 wechatFriendsEntity.setPersonalWechatId(Integer.parseInt(personalWechatId));
                 wechatFriendsEntity.setNickName(nickName);
                 wechatFriendsEntity.setWechatAlias(wechatAlias);
@@ -128,6 +129,7 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
                 wechatFriendsEntity.setPhoneStatus(phoneStatus);
                 wechatFriendsEntity.setCustomerStatus(customerStatus);
                 wechatFriendsEntity.setPhone(phone);
+                wechatFriendsEntity.setRemark(remark);
                 int count = mapper.selectCountByPersonalWechatId(wechatFriendsEntity.getPersonalWechatId());
                 if (count > 0) {
                     updateList.add(wechatFriendsEntity);
@@ -157,10 +159,17 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
      */
     private static String subStr(String str, String rule) {
         if (StringUtils.isNotBlank(str)) {
-            str = str.substring(str.indexOf(rule) + 1);
+            str = str.substring(0,str.indexOf(rule));
             return str;
         }
         return null;
     }
 
+    private static String subStr2(String str, String rule) {
+        if (StringUtils.isNotBlank(str)) {
+            str = str.substring(str.indexOf(rule)+1);
+            return str;
+        }
+        return null;
+    }
 }

@@ -7,21 +7,12 @@ spring:
     profiles:
       active: dev
   datasource:
-#    username: root
-#    password: Haidao!@#$%^&*()690159
-#    url: jdbc:mysql://120.77.207.4:3306/hdweb?serverTimezone=UTC
     username: root
-    password: tianjian
-    url: jdbc:mysql://localhost:3306/testone?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    password: Haidao!@#$%^&*()690159
+    url: jdbc:mysql://120.77.207.4:3306/siycrm?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     jdbc.driverClassName: com.mysql.jdbc.Driver
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-
-nacos:
-  namespace: dev
-  server-addr: 127.0.0.1:8848
-  auto-refresh: true
-  group: demo
 
 mybatis-plus:
   configuration:
