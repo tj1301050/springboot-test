@@ -32,7 +32,7 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
 
     String baseUrl = "https://apollo.siycrm.com/WeiXin/PersonalWechat/PersonalWechatList";
     String group_id = "?group_id=-1";
-    String pageSize = "&pageSize=100";
+    String pageSize = "&pageSize=200";
     String paramStr = "&X-Requested-With=XMLHttpRequest";
 
     @Autowired
