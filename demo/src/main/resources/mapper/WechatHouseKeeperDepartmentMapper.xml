@@ -3,7 +3,7 @@
 <mapper namespace="com.hdedu.mapper.WechatHouseKeeperDepartmentMapper">
 
     <select id="selectCountByDepartmentId" resultType="java.lang.Integer">
-        SELECT count(*) FROM `sas_siycrm_wechat_housekeeper_department` where department_id = #{departmentId}
+        SELECT 1 FROM `sas_siycrm_wechat_housekeeper_department` where department_id = #{departmentId}
     </select>
 
     <insert id="bathInsertDepartment">

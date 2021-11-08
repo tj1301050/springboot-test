@@ -275,33 +275,34 @@ public class WechatCustomerAndFriendsServiceImpl implements WechatCustomerAndFri
             String context = HttpClientUtils.doPostBody(addWechatFriendsListUrl, paramObject.toString(), currentTimeStamp, addFriendsSignature, accessToken);
             if (StringUtils.isNotBlank(context)) {
                 JSONObject object = JSONObject.parseObject(context);
-                if (null != object && successCode.equals(object.get("result_code"))) ;
-                JSONObject resultObject = object.getJSONObject("result_object");
-                JSONArray results = resultObject.getJSONArray("results");
-                totalCount = resultObject.getInteger("total");
-                List<WechatCustomerAndFriendsEntity> list = JSONObject.parseArray(results.toString(), WechatCustomerAndFriendsEntity.class);
-                if (!CollectionUtils.isEmpty(list)) {
-                    List<WechatCustomerAndFriendsEntity> insertList = new ArrayList<>();
-                    List<WechatCustomerAndFriendsEntity> updateList = new ArrayList<>();
-                    for (WechatCustomerAndFriendsEntity we : list) {
-                        QueryWrapper<WechatCustomerAndFriendsEntity> wrapper = new QueryWrapper<>();
-                        wrapper.eq("wechat_id", we.getWechatId());
-                        wrapper.eq("account_id", we.getAccountId());
-                        int count = mapper.selectCount(wrapper);
-                        if (count > 0) {
-                            updateList.add(we);
-                        } else {
-                            insertList.add(we);
+                if (null != object && successCode.equals(object.get("result_code"))) {
+                    JSONObject resultObject = object.getJSONObject("result_object");
+                    JSONArray results = resultObject.getJSONArray("results");
+                    totalCount = resultObject.getInteger("total");
+                    List<WechatCustomerAndFriendsEntity> list = JSONObject.parseArray(results.toString(), WechatCustomerAndFriendsEntity.class);
+                    if (!CollectionUtils.isEmpty(list)) {
+                        List<WechatCustomerAndFriendsEntity> insertList = new ArrayList<>();
+                        List<WechatCustomerAndFriendsEntity> updateList = new ArrayList<>();
+                        for (WechatCustomerAndFriendsEntity we : list) {
+                            QueryWrapper<WechatCustomerAndFriendsEntity> wrapper = new QueryWrapper<>();
+                            wrapper.eq("wechat_id", we.getWechatId());
+                            wrapper.eq("account_id", we.getAccountId());
+                            int count = mapper.selectCount(wrapper);
+                            if (count > 0) {
+                                updateList.add(we);
+                            } else {
+                                insertList.add(we);
+                            }
+                        }
+                        if (!CollectionUtils.isEmpty(insertList)) {
+                            mapper.batchInsertWechatCustomerAndFriendsInfo(insertList);
+                        }
+                        if (!CollectionUtils.isEmpty(updateList)) {
+                            mapper.updateWechatCustomerAndFriends(updateList);
                         }
                     }
-                    if (!CollectionUtils.isEmpty(insertList)) {
-                        mapper.batchInsertWechatCustomerAndFriendsInfo(insertList);
-                    }
-                    if (!CollectionUtils.isEmpty(updateList)) {
-                        mapper.updateWechatCustomerAndFriends(updateList);
-                    }
                 }
-            }
+                }
         }
         return totalCount;
     }

@@ -37,7 +37,7 @@
     </insert>
     
     <select id="selectCountByPersonalWechatId" resultType="java.lang.Integer">
-        select count(*) from sas_siycrm_wechat_friends where personal_wechat_id = #{personalWechatId}
+        select 1 from sas_siycrm_wechat_friends where personal_wechat_id = #{personalWechatId}
     </select>
 
     <update id="batchUpdateWechatFriends">
