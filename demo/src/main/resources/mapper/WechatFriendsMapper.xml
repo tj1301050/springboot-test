@@ -36,8 +36,8 @@
         </foreach>
     </insert>
     
-    <select id="selectCountByPersonalWechatId" resultType="java.lang.Integer">
-        select 1 from sas_siycrm_wechat_friends where personal_wechat_id = #{personalWechatId}
+    <select id="selectCountByPersonalWechatId" resultType="int">
+        select count(*) from sas_siycrm_wechat_friends where personal_wechat_id = #{personalWechatId}
     </select>
 
     <update id="batchUpdateWechatFriends">
@@ -57,7 +57,7 @@
                     </if>
                 </foreach>
             </trim>
-            <trim prefix="wechat_alias =case" suffix="end," >
+            <trim prefix="avatar =case" suffix="end," >
                 <foreach collection="list" item="i" index="index">
                     <if test="i.avatar!=null">
                         when personal_wechat_id = #{i.personalWechatId} then #{i.avatar}

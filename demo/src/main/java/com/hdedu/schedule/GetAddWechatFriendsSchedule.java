@@ -22,7 +22,7 @@ public class GetAddWechatFriendsSchedule {
     @Autowired
     private WechatCustomerAndFriendsService wechatCustomerAndFriendsService;
 
-    @Scheduled(cron = "0 * 7 * * ?")
+    @Scheduled(cron = "0 0 7,17 * * ?")
     public void addWechatFriendsSchedule(){
         wechatCustomerAndFriendsService.getAddWechatCustomerAndFriendsInfo();
     }

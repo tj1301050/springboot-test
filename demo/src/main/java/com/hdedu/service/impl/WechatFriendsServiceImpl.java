@@ -75,7 +75,7 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
                 Elements div = tds.get(1).getElementsByClass("d-flex flex-column justify-content-between ml-2");
                 Elements spans = div.select("span");
                 String nickName = subStr2(spans.get(0).text(), ":");
-                String wechatAlias = subStr(spans.get(2).text(), ":");
+                String wechatAlias = subStr2(spans.get(2).text(), ":");
                 String gender = subStr2(spans.get(3).text(), ":");
                 String wechatVersion = subStr2(spans.get(4).text(), ":");
                 String status = subStr2(spans.get(5).text(), ":");
