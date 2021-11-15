@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hdedu.mapper.WechatHouseKeeperUserMapper">
 
-    <select id="selectCountByWechatHouseKeeperUserId" resultType="java.lang.Integer">
-        SELECT 1 FROM `sas_siycrm_wechat_housekeeper_user` where wechat_house_keeper_user_id = #{wechatHouseKeeperUserId}
+    <select id="selectCountByWechatHouseKeeperUserId" resultType="int">
+        SELECT count(*) FROM `sas_siycrm_wechat_housekeeper_user` where wechat_house_keeper_user_id = #{wechatHouseKeeperUserId}
     </select>
 
     <insert id="bathInsertUser">
