@@ -6,6 +6,7 @@ import com.hdedu.mapper.WechatHouseKeeperUserMapper;
 import com.hdedu.service.WechatHouseKeeperUserService;
 import com.hdedu.utils.HttpClientUtils;
 import com.hdedu.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,6 +24,8 @@ import java.util.*;
  * @description TODO
  * @date 2021/10/27 10:11
  */
+
+@Slf4j
 @Service
 public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserService {
 
@@ -106,9 +109,11 @@ public class WechatHouseKeeperUserServiceImpl implements WechatHouseKeeperUserSe
                 }
             }
             if (!CollectionUtils.isEmpty(insertList)) {
+                log.info("新增的账户信息：" + insertList.toString());
                 userMapper.bathInsertUser(insertList);
             }
             if (!CollectionUtils.isEmpty(updateList)) {
+                log.info("更新的账户信息：" + updateList.toString());
                 userMapper.updateHouseKeepUserInfo(updateList);
             }
         } catch (IOException exception) {

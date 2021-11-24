@@ -9,6 +9,7 @@ import com.hdedu.mapper.WechatHouseKeeperDepartmentMapper;
 import com.hdedu.service.WechatHouseKeeperDepartmentService;
 import com.hdedu.utils.GetResourceFileUtils;
 import com.hdedu.utils.HttpClientUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +23,8 @@ import java.util.*;
  * @description TODO
  * @date 2021/10/26 15:19
  */
+
+@Slf4j
 @Service
 public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements WechatHouseKeeperDepartmentService {
 
@@ -63,9 +66,11 @@ public class WechatHouseKeeperWechatHouseKeeperDepartmentServiceImpl implements 
                 }
             }
             if (!CollectionUtils.isEmpty(insertList)) {
+                log.info("新增的部门信息：" + insertList.toString());
                 wechatHouseKeeperDepartmentMapper.bathInsertDepartment(insertList);
             }
             if (!CollectionUtils.isEmpty(updateList)) {
+                log.info("更新的部门信息：" + insertList.toString());
                 wechatHouseKeeperDepartmentMapper.updateHouseKeepDepartmentInfo(updateList);
             }
         } catch (IOException exception) {

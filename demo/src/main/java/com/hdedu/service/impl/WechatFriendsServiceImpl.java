@@ -4,6 +4,7 @@ import com.hdedu.entity.WechatFriendsEntity;
 import com.hdedu.mapper.WechatFriendsMapper;
 import com.hdedu.service.WechatFriendsService;
 import com.hdedu.utils.HttpClientUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 import org.jsoup.Jsoup;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @date 2021/11/3 9:06
  */
 
+@Slf4j
 @Service
 public class WechatFriendsServiceImpl implements WechatFriendsService {
 
@@ -138,9 +140,11 @@ public class WechatFriendsServiceImpl implements WechatFriendsService {
                 }
             }
             if (!CollectionUtils.isEmpty(updateList)) {
+                log.info("更新的微信好友信息" + updateList.toString());
                 mapper.batchUpdateWechatFriends(updateList);
             }
             if (!CollectionUtils.isEmpty(insertList)) {
+                log.info("新增的微信好友信息" + insertList.toString());
                 mapper.bathInsertWechatFriends(insertList);
             }
         } catch (IOException exception) {

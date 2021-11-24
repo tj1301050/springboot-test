@@ -8,6 +8,7 @@ import com.hdedu.mapper.WechatUserTagsMapper;
 import com.hdedu.service.WechatFriendsAndTagsService;
 import com.hdedu.utils.HttpClientUtils;
 import com.hdedu.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,6 +28,8 @@ import java.util.Map;
  * @description TODO
  * @date 2021/11/3 14:57
  */
+
+@Slf4j
 @Service
 public class WechatFriendsAndTagsServiceImpl implements WechatFriendsAndTagsService {
 
@@ -104,11 +107,13 @@ public class WechatFriendsAndTagsServiceImpl implements WechatFriendsAndTagsServ
                     userUnderTagsEntities.add(userUnderTagsEntity);
                 }
                 if (!CollectionUtils.isEmpty(userUnderTagsEntities)) {
+                    log.info("新增标签下的用户信息：" + userUnderTagsEntities.toString());
                     userUnderTagsMapper.batchInsertUserUnderTags(userUnderTagsEntities);
                 }
                 wechatUserTagsList.add(wechatUserTags);
             }
             if (!CollectionUtils.isEmpty(wechatUserTagsList)) {
+                log.info("小助手的用户标签信息：" + wechatUserTagsList.toString());
                 wechatUserTagsMapper.batchInsertWechatUserTags(wechatUserTagsList);
             }
         } catch (Exception e) {

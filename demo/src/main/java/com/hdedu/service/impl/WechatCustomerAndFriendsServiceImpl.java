@@ -125,6 +125,7 @@ public class WechatCustomerAndFriendsServiceImpl implements WechatCustomerAndFri
                         JSONObject resultObject = object.getJSONObject("result_object");
                         JSONArray results = resultObject.getJSONArray("results");
                         List<WechatCustomerAndFriendsEntity> list = JSONObject.parseArray(results.toString(), WechatCustomerAndFriendsEntity.class);
+                        log.info("暂未分配小助手的线索信息：" + list);
                         mapper.updateWechatCustomerAndFriends(list);
                         requestFriendRecordIds.clear();
                     }
@@ -295,9 +296,11 @@ public class WechatCustomerAndFriendsServiceImpl implements WechatCustomerAndFri
                             }
                         }
                         if (!CollectionUtils.isEmpty(insertList)) {
+                            log.info("新增的增量好友信息：" + insertList.toString());
                             mapper.batchInsertWechatCustomerAndFriendsInfo(insertList);
                         }
                         if (!CollectionUtils.isEmpty(updateList)) {
+                            log.info("更新的好友信息：" + insertList.toString());
                             mapper.updateWechatCustomerAndFriends(updateList);
                         }
                     }
